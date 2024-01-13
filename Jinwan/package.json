@@ -4,7 +4,7 @@
   "description": "core js study summary",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "author": "crowwan",
   "license": "ISC",
