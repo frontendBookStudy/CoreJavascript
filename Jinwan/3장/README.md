@@ -27,7 +27,7 @@ it("일반 함수의 this는 전역 객체를 가리킨다.", () => {
   function whereIsThis() {
     return this;
   }
-  expect(whereIsThis()).toEqual(???);
+  expect(whereIsThis()).toBe(???);
 });
 ```
 
@@ -47,7 +47,7 @@ it("중첩 함수의 this는 전역 객체를 가리킨다.", () => {
     }
     return inner();
   }
-  expect(outer()).toEqual(???);
+  expect(outer()).toBe(???);
 });
 ```
 
@@ -60,13 +60,13 @@ it("콜백 함수의 this도 전역 객체를 가리킨다.", () => {
     funWithCallback(function () {
       return this;
     })
-  ).toEqual(???); // passed or failed
+  ).toBe(???); // passed or failed
   const obj = {
     method: function () {
       return this;
     },
   };
-  expect(funWithCallback(obj.method)).toEqual(???); // pass 시키려면 어떤 값이 들어갈까?
+  expect(funWithCallback(obj.method)).toBe(???); // pass 시키려면 어떤 값이 들어갈까?
 });
 ```
 
@@ -82,8 +82,8 @@ it("method의 this는 호출한 객체를 가리킨다.", () => {
       return this;
     },
   };
-  expect(obj.a).toEqual(???); // 아래 화살표 함수를 참조하자
-  expect(obj.b()).toEqual(???);
+  expect(obj.a).toBe(???); // 아래 화살표 함수를 참조하자
+  expect(obj.b()).toBe(???);
 });
 it("method를 복사해도, this는 호출한 객체를 가리킨다.", () => {
   const obj1 = {
@@ -94,7 +94,7 @@ it("method를 복사해도, this는 호출한 객체를 가리킨다.", () => {
   const obj2 = {
     method: obj1.method,
   };
-  expect(obj2.method()).toEqual(???); // passed or failed
+  expect(obj2.method()).toBe(???); // passed or failed
 });
 ```
 
@@ -130,13 +130,13 @@ it("생성자 함수의 this는 미래 인스턴스를 가리킨다.", () => {
 ```javascript
 describe("화살표 함수의 this", () => {
   it("화살표 함수의 this는 상위 스코프의 this가 바인딩된다.", () => {
-    expect(this).toEqual(???);
+    expect(this).toBe(???);
   });
   it("상위 스코프가 일반 함수일 경우 this는 전역 객체를 가리킨다.", () => {
     function foo() {
       return (() => this)();
     }
-    expect(foo()).toEqual(???);
+    expect(foo()).toBe(???);
   });
   it("상위 스코프가 메소드인 경우 this는 호출한 객체를 가리킨다.", () => {
     const obj = {
@@ -144,24 +144,36 @@ describe("화살표 함수의 this", () => {
         return (() => this)();
       },
     };
-    expect(obj.method()).toEqual(???);
+    expect(obj.method()).toBe(???);
+  });
+  it("중첩 함수를 화살표 함수로 생성할 경우 this는 상위 스코프의 this를 가리킨다.", () => {
+    const arrowOuter = () => {
+      return (() => {
+        return this;
+      })();
+    };
+    function outer() {
+      return (() => this)();
+    }
+    expect(arrowOuter()).toBe(???);
+    expect(outer()).toBe(???);
   });
   it("메소드를 화살표 함수로 생성할 경우 this는 상위 스코프의 this를 가리킨다.", () => {
     const obj = {
       method: () => this,
     };
-    expect(obj.method()).toEqual(???); // es6의 메소드 정의 방식을 사용해야 하는 이유
+    expect(obj.method()).toBe(???); // es6의 메소드 정의 방식을 사용해야 하는 이유
   });
   it("콜백 함수를 화살표 함수로 넘겨줄 경우 this는 정의 된 위치에서의 상위 스코프 this를 가리킨다.", () => {
     function funWithCallback(callback) {
       return callback();
     }
-    expect(funWithCallback(() => this)).toEqual(???); // pass 하려면 어떻게 해야할까?
+    expect(funWithCallback(() => this)).toBe(???); // pass 하려면 어떻게 해야할까?
     function generateCallback() {
       return () => this;
     }
-    expect(generateCallback()()).toEqual(???); // pass 하려면 어떻게 해야할까?
-    expect(funWithCallback(generateCallback())).toEqual(???); // pass 하려면 어떻게 해야할까?
+    expect(generateCallback()()).toBe(???); // pass 하려면 어떻게 해야할까?
+    expect(funWithCallback(generateCallback())).toBe(???); // pass 하려면 어떻게 해야할까?
   });
 });
 ```
