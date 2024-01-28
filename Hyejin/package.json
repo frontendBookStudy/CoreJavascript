@@ -1,0 +1,14 @@
+{
+  "name": "core-js",
+  "version": "1.0.0",
+  "description": "core js study summary",
+  "main": "index.js",
+  "scripts": {
+    "c": "jest --verbose"
+  },
+  "author": "crowwan",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
